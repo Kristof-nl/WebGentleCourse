@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using WebGentleCourse.Models;
 using WebGentleCourse.Repository;
 
@@ -20,16 +21,19 @@ namespace WebGentleCourse.Controllers
             return View(data);
         }
 
-        //public BookModel GetBook(int id)
+        public ViewResult GetBook(int id)
+        {
+
+            var data = _bookRepository.GetBookById(id);
+
+            return View(data);
+        }
+
+        //public List<BookModel> SearchBooks(string bookName, string authorName)
         //{
-        //    var data = _bookRepository.GetBookById(id);
-            
+
         //}
 
-        //public IActionResult GetAllBooks()
-        //{
-        //    var data = _bookRepository.GetAllBooks();
-        //    return View();
-        //}
+
     }
 }
