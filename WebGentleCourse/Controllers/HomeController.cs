@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using WebGentleCourse.Models;
+using System.Dynamic;
 
 namespace WebGentleCourse.Controllers
 {
@@ -20,6 +21,7 @@ namespace WebGentleCourse.Controllers
 
         public IActionResult Index()
         {
+
             return View();
         }
 

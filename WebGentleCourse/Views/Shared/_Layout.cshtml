@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebGentleCourse</title>
+    <title>@ViewData["Title"] - WebGentleCourse </title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -19,16 +19,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" href="/">Home</a>
+                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index" >Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark"  href="/home/about">About</a>
+                            <a class="nav-link text-dark"  asp-controller="Home" asp-action="About" >About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark"  href="/home/contactus">Contact</a>
+                            <a class="nav-link text-dark"  asp-controller="Home" asp-action="ContactUs" >Contact Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark"  href="/book/getallbooks">All Books</a>
+                            <a class="nav-link text-dark"  asp-controller="Book" asp-action="GetAllBooks">All Books</a>
                         </li>
                     </ul>
                      <ul class="navbar-nav ml-auto">

@@ -1,10 +1,10 @@
-﻿@{
+﻿@*@{
     ViewData["Title"] = "Home Page";
-}
+}*@
 <section>
     <div class="jumbotron text-center">
         <div class="container">
-            <h1 class="display-4 font-weight-bold">Welcome to Bookstore</h1>
+            <h1 class="display-4 font-weight-bold">Welcome to Bookstore @ViewData["Message"]</h1>
             <p class="text-muted">Lorem sed ut perspiciatis, unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam eaque ipsa, quae ab illo 
                   inventore veritatis et quasi architecto beatae vitae dicta sunt, explicabo. Nemo enim ipsam voluptatem, quia voluptas sit, aspernatur aut odit aut fugit, 
                   sed quia consequuntur magni dolores eos, qui ratione voluptatem sequi nesciunt.</p>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  
     </div>
 </div>
 
