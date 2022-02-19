@@ -29,10 +29,21 @@ namespace WebGentleCourse.Controllers
             return View(data);
         }
 
-        //public List<BookModel> SearchBooks(string bookName, string authorName)
-        //{
+        public List<BookModel> SearchBooks(string bookName, string authorName)
+        {
+            return _bookRepository.SearchBook(bookName, authorName);
+        }
 
-        //}
+        public ViewResult AddNewBook()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ViewResult AddNewBook(BookModel bookModel)
+        {
+            return View();
+        }
 
 
     }
