@@ -1,19 +1,83 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using WebGentleCourse.Data;
 using WebGentleCourse.Models;
 
 namespace WebGentleCourse.Repository
 {
     public class BookRepository
     {
-        public List<BookModel> GetAllBooks()
+        private readonly BookStoreContext _context;
+
+        public BookRepository(BookStoreContext context)
         {
-            return DataSource();
+            _context = context;
         }
 
-        public BookModel GetBookById(int id)
+        public async  Task<List<BookModel>> GetAllBooks()
         {
-            return DataSource().Where(x => x.Id == id).FirstOrDefault();
+
+            var allBooks = await _context.Books.ToListAsync();
+            var books = new List<BookModel>();
+            if (allBooks?.Any() == true)
+            {
+                foreach (var book in allBooks)
+                {
+                    books.Add(new BookModel()
+                    {
+                        Id = book.Id,
+                        Category = book.Category,
+                        Description = book.Description,
+                        Language = book.Language,
+                        Title = book.Title,
+                        TotalPages = book.TotalPages
+                    });
+                }
+            }
+            return books;
+        }
+
+        public async Task<int> AddNewBook(BookModel model)
+        {
+            var newBook = new Book()
+            {
+                Author = model.Author,
+                CreatedOn = DateTime.Now,
+                Description = model.Description,
+                Title = model.Title,
+                TotalPages = model.TotalPages,
+                UpdatedOn = DateTime.Now
+            };  
+
+            await _context.Books.AddAsync(newBook);
+            await _context.SaveChangesAsync();
+
+            return newBook.Id;
+        }
+
+        public async Task<BookModel> GetBookById(int id)
+        {
+            var book = await _context.Books.FindAsync(id);
+            if (book != null)
+            {
+                var bookDetails = new BookModel()
+                {
+                    Author = book.Author,
+                    Category = book.Category,
+                    Description = book.Description,
+                    Id = book.Id,
+                    Language = book.Language,
+                    Title = book.Title,
+                    TotalPages = book.TotalPages
+                };
+                
+                return bookDetails;
+            }
+
+            return null;
         }
 
 

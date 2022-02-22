@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebGentleCourse.Data;
+using WebGentleCourse.Repository;
 
 namespace WebGentleCourse
 {
@@ -30,6 +31,7 @@ namespace WebGentleCourse
             services.AddControllersWithViews();
 
             services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.AddScoped<BookRepository, BookRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
