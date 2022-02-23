@@ -36,6 +36,8 @@ namespace WebGentleCourse.Controllers
 
         public ViewResult AddNewBook(bool isSuccess = false, int bookId = 0)
         {
+            ViewBag.Language = new List<string>() { "Hindi", "English", "Dutch"};
+
             ViewBag.IsSuccess = isSuccess;
             ViewBag.BookId = bookId;
             return View();
@@ -44,11 +46,20 @@ namespace WebGentleCourse.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewBook(BookModel bookModel) 
         {
-            int id = await _bookRepository.AddNewBook(bookModel);
-            if(id > 0)
+            ViewBag.Language = new List<string>() { "Hindi", "English", "Dutch" };
+
+            if (ModelState.IsValid)
             {
-                return RedirectToAction(nameof(AddNewBook), new  {isSuccess = true, bookId = id });    
+                int id = await _bookRepository.AddNewBook(bookModel);
+                if (id > 0)
+                {
+                    return RedirectToAction(nameof(AddNewBook), new { isSuccess = true, bookId = id });
+                }
             }
+
+            ModelState.AddModelError("", "This is my custom error message");
+            
+
             return View();
         }
 
