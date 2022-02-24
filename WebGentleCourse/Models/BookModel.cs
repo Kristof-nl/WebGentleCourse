@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using WebGentleCourse.Enums;
 
 namespace WebGentleCourse.Models
 {
@@ -15,6 +16,7 @@ namespace WebGentleCourse.Models
         public string Category { get; set; }
         [Required(ErrorMessage = "Please choose a language")]
         public string Language { get; set; }
+        public LanguageEnum LanguageEnum { get; set; }
         [Required(ErrorMessage = "Please enter a total pages")]
         [Display(Name ="Total Pages")]
         public int? TotalPages { get; set; }

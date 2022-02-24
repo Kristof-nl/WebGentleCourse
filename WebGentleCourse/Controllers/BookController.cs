@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WebGentleCourse.Models;
 using WebGentleCourse.Repository;
@@ -36,7 +38,11 @@ namespace WebGentleCourse.Controllers
 
         public ViewResult AddNewBook(bool isSuccess = false, int bookId = 0)
         {
-            ViewBag.Language = new List<string>() { "Hindi", "English", "Dutch"};
+            //ViewBag.Language = GetLanguage().Select(x => new SelectListItem()
+            //{
+            //    Text = x.Text,
+            //    Value = x.Id.ToString()
+            //}).ToList();
 
             ViewBag.IsSuccess = isSuccess;
             ViewBag.BookId = bookId;
@@ -46,7 +52,11 @@ namespace WebGentleCourse.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewBook(BookModel bookModel) 
         {
-            ViewBag.Language = new List<string>() { "Hindi", "English", "Dutch" };
+            //ViewBag.Language = GetLanguage().Select(x => new SelectListItem()
+            //{
+            //    Text = x.Text,
+            //    Value = x.Id.ToString()
+            //}).ToList();
 
             if (ModelState.IsValid)
             {
@@ -57,12 +67,22 @@ namespace WebGentleCourse.Controllers
                 }
             }
 
-            ModelState.AddModelError("", "This is my custom error message");
+            
+            
             
 
             return View();
         }
 
+        private List<LanguageModel> GetLanguage()
+        {
+            return new List<LanguageModel>()
+            {
+                new LanguageModel() { Id = 1, Text = "English" },
+                new LanguageModel() { Id = 1, Text = "Hindi" },
+                new LanguageModel() { Id = 1, Text = "Dutch" }
+            };
+        }
 
     }
 }
