@@ -11,9 +11,12 @@ namespace WebGentleCourse.Controllers
     public class BookController : Controller
     {
         private readonly BookRepository _bookRepository;
-        public BookController(BookRepository bookRepository)
+        private readonly LanguageRepository _languageRepository;
+
+        public BookController(BookRepository bookRepository, LanguageRepository languageRepository)
         {
             _bookRepository = bookRepository;
+            _languageRepository = languageRepository;
         }
 
         public async Task<ViewResult> GetAllBooks()
@@ -31,18 +34,14 @@ namespace WebGentleCourse.Controllers
             return View(data);
         }
 
-        public List<BookModel> SearchBooks(string bookName, string authorName)
-        {
-            return _bookRepository.SearchBook(bookName, authorName);
-        }
+        //public List<BookModel> SearchBooks(string bookName, string authorName)
+        //{
+        //    return _bookRepository.SearchBook(bookName, authorName);
+        //}
 
-        public ViewResult AddNewBook(bool isSuccess = false, int bookId = 0)
+        public async Task<ViewResult> AddNewBook(bool isSuccess = false, int bookId = 0)
         {
-            //ViewBag.Language = GetLanguage().Select(x => new SelectListItem()
-            //{
-            //    Text = x.Text,
-            //    Value = x.Id.ToString()
-            //}).ToList();
+            ViewBag.Language = new SelectList(await _languageRepository.GetLanguages(), "Id", "Name"); 
 
             ViewBag.IsSuccess = isSuccess;
             ViewBag.BookId = bookId;
@@ -52,11 +51,7 @@ namespace WebGentleCourse.Controllers
         [HttpPost]
         public async Task<IActionResult> AddNewBook(BookModel bookModel) 
         {
-            //ViewBag.Language = GetLanguage().Select(x => new SelectListItem()
-            //{
-            //    Text = x.Text,
-            //    Value = x.Id.ToString()
-            //}).ToList();
+            ViewBag.Language = new SelectList(await _languageRepository.GetLanguages(), "Id", "Name");
 
             if (ModelState.IsValid)
             {
@@ -66,22 +61,8 @@ namespace WebGentleCourse.Controllers
                     return RedirectToAction(nameof(AddNewBook), new { isSuccess = true, bookId = id });
                 }
             }
-
-            
-            
-            
-
+          
             return View();
-        }
-
-        private List<LanguageModel> GetLanguage()
-        {
-            return new List<LanguageModel>()
-            {
-                new LanguageModel() { Id = 1, Text = "English" },
-                new LanguageModel() { Id = 1, Text = "Hindi" },
-                new LanguageModel() { Id = 1, Text = "Dutch" }
-            };
         }
 
     }

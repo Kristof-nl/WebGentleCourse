@@ -15,8 +15,8 @@ namespace WebGentleCourse.Models
         public string Description { get; set; }
         public string Category { get; set; }
         [Required(ErrorMessage = "Please choose a language")]
+        public int LanguageId { get; set; }
         public string Language { get; set; }
-        public LanguageEnum LanguageEnum { get; set; }
         [Required(ErrorMessage = "Please enter a total pages")]
         [Display(Name ="Total Pages")]
         public int? TotalPages { get; set; }
