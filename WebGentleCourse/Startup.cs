@@ -29,8 +29,12 @@ namespace WebGentleCourse
             services.AddDbContext<BookStoreContext>(options => 
             options.UseSqlServer("Server=(localdb)\\LocalDb;Database=WebGentle;Trusted_Connection=True;MultipleActiveResultSets=true"));
             services.AddControllersWithViews();
-
-            services.AddRazorPages().AddRazorRuntimeCompilation();
+#if DEBUG
+            services.AddRazorPages().AddRazorRuntimeCompilation().AddViewOptions(option =>
+            {
+                option.HtmlHelperOptions.ClientValidationEnabled = false;
+            });
+#endif
             services.AddScoped<BookRepository, BookRepository>();
             services.AddScoped<LanguageRepository, LanguageRepository>();
         }
